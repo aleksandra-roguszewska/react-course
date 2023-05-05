@@ -7,18 +7,22 @@ import "./ExpenseList.css";
 export default function ExpenseList({ expenses }) {
   const [filteredYear, setFilteredYear] = useState("2023");
 
-  const filterChangeHandler = (event) => {
-    setFilteredYear(event.target.value);
+  const filterChangeHandler = (argument) => {
+    setFilteredYear(argument);
   };
+
+  const filteredExpenses = expenses.filter((item) => {
+    return item.date.getFullYear().toString() === filteredYear;
+  });
 
   return (
     <div>
       <Card className="expenses">
         <ExpensesFilter
           selected={filteredYear}
-          onChangeHandler={filterChangeHandler}
+          onFilterChangeHandler={filterChangeHandler}
         />
-        {expenses.map((item) => (
+        {filteredExpenses.map((item) => (
           <ExpenseItem
             key={item.id}
             title={item.title}
