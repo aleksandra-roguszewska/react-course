@@ -4,19 +4,23 @@ import NewExpenseButton from "./NewExpenseButton";
 import { useState } from "react";
 
 const NewExpense = (props) => {
-  const [formVisibility, SetFormVisibility] = useState(false);
+  const [formVisibility, setFormVisibility] = useState(false);
 
   const saveExpenseDataHandler = (enteredExpenseData) => {
     const expenseData = { ...enteredExpenseData, id: Math.random().toString() };
     props.onAddExpense(expenseData);
+    setFormVisibility((currentFormVisibility) => !currentFormVisibility);
   };
 
   return (
     <div className="new-expense">
       {formVisibility ? (
-        <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} />
+        <ExpenseForm
+          setFormVisibility={setFormVisibility}
+          onSaveExpenseData={saveExpenseDataHandler}
+        />
       ) : (
-        <NewExpenseButton setFormVisibility={SetFormVisibility} />
+        <NewExpenseButton setFormVisibility={setFormVisibility} />
       )}
     </div>
   );
