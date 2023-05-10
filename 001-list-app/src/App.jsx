@@ -1,5 +1,6 @@
 import { useState } from "react";
 import UserForm from "./Components/UserForm/UserForm";
+import UserList from "./Components/UserList/UserList";
 import "./App.css";
 
 function App() {
@@ -16,8 +17,7 @@ function App() {
   return (
     <>
       <UserForm handleFormSubmit={handleFormSubmit} />
-      <div>Form - Username - Age(Years) Add user button</div>
-      <div>UserList - user item -user item -user item</div>
+      <UserList userArray={userArray} />
     </>
   );
 }
