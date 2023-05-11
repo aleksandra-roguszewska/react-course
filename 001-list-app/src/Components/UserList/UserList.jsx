@@ -2,7 +2,11 @@ const UserList = ({ userArray }) => {
   return (
     <div>
       {userArray.map((item) => {
-        return <div key={item.age}>{item.username}</div>;
+        return (
+          <div key={item.username}>
+            Name: {item.username} (Age: {item.age})
+          </div>
+        );
       })}
     </div>
   );

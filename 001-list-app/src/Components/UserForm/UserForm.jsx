@@ -1,12 +1,15 @@
 import { useState } from "react";
+import WrongEntryModal from "../WrongEntryModal/WrongEntryModal";
 
 const UserForm = (props) => {
   const [username, setUsername] = useState("");
   const [userAge, setUserAge] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
     console.log(username);
+    setIsVisible(false);
   };
 
   const handleAgeChange = (event) => {
@@ -15,14 +18,26 @@ const UserForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (username == "" || userAge < 0) {
+      console.log("Banan");
+      setIsVisible(true);
+      setUserAge(0);
+      setUsername("");
+      return;
+    }
     props.handleFormSubmit(username, userAge);
     setUserAge(0);
     setUsername("");
     console.log(username);
   };
 
+  const escapeModal = () => {
+    setIsVisible(false);
+  };
+
   return (
-    <div>
+    <>
+      {isVisible ? <WrongEntryModal escapeModal={escapeModal} /> : ""}
       <form className="userform" onSubmit={handleSubmit}>
         <label htmlFor="username">Username</label>
         <input
@@ -41,7 +56,7 @@ const UserForm = (props) => {
         ></input>
         <button>Add User</button>
       </form>
-    </div>
+    </>
   );
 };
 
